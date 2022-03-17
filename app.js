@@ -8,7 +8,7 @@ let goblinNameInput = document.getElementById('goblin-name');
 
 let playerHp = 10;
 let goblinArray = [
-    { name: 'Jimothy', id: 0, hp: 2 },
+    { name: 'Jimothy', id: 0, hp: 1 },
     { name: 'The Captain', id: 1, hp: 15 },
 ];
 let defeatedGoblins = 0;
@@ -21,8 +21,7 @@ createGoblinButton.addEventListener('click', () => {
     displayGoblins();
 });
 
-function clickGoblin(goblin, goblinDiv) {
-    //if (playerHp > 0 && goblin.hp > 0) {
+function clickGoblin(goblin) {
     let playerHit = Math.random();
     let goblinHit = Math.random();
     if (goblin.name === 'The Captain') {
@@ -39,7 +38,6 @@ function clickGoblin(goblin, goblinDiv) {
         goblin.hp--;
         if (goblin.hp === 0) {
           //goblin est dead
-            goblinDiv.removeEventListener('click', clickGoblin());
             defeatedGoblins++;
             numDefeatedDisplay.textContent = 'Number Defeated: ' + defeatedGoblins;
         }
@@ -60,7 +58,6 @@ function clickGoblin(goblin, goblinDiv) {
         alert('You dodge the goblin\'s swing.');
     }
     displayGoblins();
-    //}
 }
 
 function displayGoblins() {

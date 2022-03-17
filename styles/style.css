@@ -78,7 +78,7 @@ header img {
 p {
     margin: var(--gutter);
 }
-  
+
 footer {
     position: fixed;
     width: 100%;
@@ -100,4 +100,5 @@ footer {
 
 .dead {
     background-color: red;
+    pointer-events: none;
 }
