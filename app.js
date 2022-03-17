@@ -11,8 +11,6 @@ let goblinArray = [
 ];
 let defeatedGoblins = 0;
 let goblinId = 2;
-let goblina;
-let goblinDiv;
 
 createGoblinButton.addEventListener('click', () => {
     let newGoblin = { name: goblinNameInput.value || 'A Goblin', id: goblinId, hp: 3 };
