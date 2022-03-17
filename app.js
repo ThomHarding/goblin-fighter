@@ -4,7 +4,7 @@ let numDefeatedDisplay = document.getElementById('num-defeated');
 let goblinDisplay = document.getElementById('goblin-holder');
 let goblinNameInput = document.getElementById('goblin-name');
 
-let playerHp = 0;
+let playerHp = 3;
 let goblinArray = [
     { name: 'Jimothy', id: 0, hp: 3 },
     { name: 'The Captain', id: 1, hp: 15 },
@@ -35,35 +35,46 @@ function displayGoblins() {
     goblinDisplay.innerHTML = '';
     for (let goblin of goblinArray) {
         let goblinDiv = renderGoblin(goblin);
+        goblinDiv.classList.add('goblin');
         goblinDiv.addEventListener('click', () => {
-      /*event listener on click
-    math.random to determine hit
-    math.random to determine goblin hit
-    if hit {
-      alert to show hit
-      displayGoblins();
-      if goblin hp = 0 {
-        disable goblin button
-        change its display somehow? make it red and strikethrough?
-      }
-    } else {
-      alert to show no hit
-      displayGoblins();
-    } if goblin hit {
-      alert to show goblin hit
-      playerHp--;
-      displayGoblins();
-      if user hp = 0 {
-        let buttons = document.querySelectorAll('button');
-        for (let button of buttons) {
-          button.disabled = true;
-        }
-      }
-    } else {
-      alert to show no goblin hit
-      displayGoblins();
-    }*/
+          //should refactor this into its own function so i can just remove the event listener
+            if (goblin.hp > 0 && playerHp > 0) {
+                let playerHit = Math.random();
+                let goblinHit = Math.random();
+                if (goblin.name === 'The Captain') {
+                    if (playerHit > 0.9) {
+                        alert('Your attack damages the thing... barely.');
+                        goblin.hp--;
+                    } else {
+                        alert('The Captain parries your attack effortlessly.');
+                    }
+                } else if (playerHit > 0.5) {
+                    alert('Your attack connects.');
+                    goblin.hp--;
+                    if (goblin.hp === 0) {
+                        goblinDiv.disabled = true;
+                        goblinDiv.classList.add('dead');
+                        defeatedGoblins++;
+                        numDefeatedDisplay.textContent = 'Number Defeated: ' + defeatedGoblins;
+                    }
+                } else {
+                    alert('The creature scrambles out of the way of your swing.');
+                } if (goblinHit < 0.9) {
+                    alert('The goblin lands a blow on you.');
+                    playerHp--;
+                    playerHpDisplay.textContent = 'Your Health: ' + playerHp;
+                    if (playerHp === 0) {
+                        createGoblinButton.disabled = true;
+                        alert('You have died. Refresh the page if another hero stands against the goblin tide.');
+                    }
+                } else {
+                    alert('You dodge the goblin\'s clumsy swing.');
+                }
+                displayGoblins();
+            }
         });
         goblinDisplay.appendChild(goblinDiv);
     }
 }
+
+displayGoblins();
