@@ -31,7 +31,7 @@ function renderGoblin(goblinObject) {
     return newGoblinDiv;
 }
 
-function clickGoblin(goblin, goblinDiv) {
+function clickGoblin(goblin) {
     if (playerHp > 0 && goblin.hp > 0) {
         let playerHit = Math.random();
         let goblinHit = Math.random();
@@ -46,7 +46,6 @@ function clickGoblin(goblin, goblinDiv) {
             alert('Your attack connects.');
             goblin.hp--;
             if (goblin.hp === 0) {
-                goblinDiv.disabled = true;
                 defeatedGoblins++;
                 numDefeatedDisplay.textContent = 'Number Defeated: ' + defeatedGoblins;
             }
@@ -62,7 +61,7 @@ function clickGoblin(goblin, goblinDiv) {
                 alert('You have died. Refresh the page if another hero stands against the goblin tide.');
             }
         } else {
-            alert('You dodge the goblin\'s clumsy swing.');
+            alert('You dodge the goblin\'s swing.');
         }
         displayGoblins();
     }
@@ -79,7 +78,7 @@ function displayGoblins() {
             goblinDiv.classList.add('captain');
         }
         goblinDiv.addEventListener('click', () => {
-            clickGoblin(goblin, goblinDiv);
+            clickGoblin(goblin);
         });
         goblinDisplay.appendChild(goblinDiv);
     }
