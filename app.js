@@ -6,7 +6,7 @@ let goblinNameInput = document.getElementById('goblin-name');
 
 let playerHp = 10;
 let goblinArray = [
-    { name: 'Jimothy', id: 0, hp: 1 },
+    { name: 'Jimothy', id: 0, hp: 2 },
     { name: 'The Captain', id: 1, hp: 15 },
 ];
 let defeatedGoblins = 0;
@@ -63,7 +63,7 @@ function displayGoblins() {
                     }
                 } else {
                     alert('The creature scrambles out of the way of your swing.');
-                } if (goblinHit < 0.9) {
+                } if (goblinHit < 0.5) {
                     alert('The goblin lands a blow on you.');
                     playerHp--;
                     playerHpDisplay.textContent = 'Your Health: ' + playerHp;
