@@ -1,3 +1,5 @@
+import { renderGoblin } from './render-utils.js';
+
 let createGoblinButton = document.getElementById('make-goblin-button');
 let playerHpDisplay = document.getElementById('player-hp');
 let numDefeatedDisplay = document.getElementById('num-defeated');
@@ -19,52 +21,46 @@ createGoblinButton.addEventListener('click', () => {
     displayGoblins();
 });
 
-function renderGoblin(goblinObject) {
-    let newGoblinDiv = document.createElement('div');
-    let nameDiv = document.createElement('div');
-    nameDiv.textContent = goblinObject.name;
-    newGoblinDiv.appendChild(nameDiv);
-    let hpDiv = document.createElement('div');
-    hpDiv.textContent = 'Health: ' + goblinObject.hp;
-    newGoblinDiv.appendChild(hpDiv);
-    newGoblinDiv.classList.add('goblin');
-    return newGoblinDiv;
-}
-
-function clickGoblin(goblin) {
-    if (playerHp > 0 && goblin.hp > 0) {
-        let playerHit = Math.random();
-        let goblinHit = Math.random();
-        if (goblin.name === 'The Captain') {
-            if (playerHit > 0.9) {
-                alert('Your attack damages the thing... barely.');
-                goblin.hp--;
-            } else {
-                alert('The Captain parries your attack effortlessly.');
-            }
-        } else if (playerHit > 0.5) {
-            alert('Your attack connects.');
+function clickGoblin(goblin, goblinDiv) {
+    //if (playerHp > 0 && goblin.hp > 0) {
+    let playerHit = Math.random();
+    let goblinHit = Math.random();
+    if (goblin.name === 'The Captain') {
+      //special captain math. replace later with captain just having higher power
+        if (playerHit > 0.9) {
+            alert('Your attack damages the thing... barely.');
             goblin.hp--;
-            if (goblin.hp === 0) {
-                defeatedGoblins++;
-                numDefeatedDisplay.textContent = 'Number Defeated: ' + defeatedGoblins;
-            }
         } else {
-            alert('The creature scrambles out of the way of your swing.');
-        } if (goblinHit < 0.5) {
-            alert('The goblin lands a blow on you.');
-            playerHp--;
-            playerHpDisplay.textContent = 'Your Health: ' + playerHp;
-            if (playerHp === 0) {
-                createGoblinButton.disabled = true;
-                goblinNameInput.value = '';
-                alert('You have died. Refresh the page if another hero stands against the goblin tide.');
-            }
-        } else {
-            alert('You dodge the goblin\'s swing.');
+            alert('The Captain parries your attack effortlessly.');
         }
-        displayGoblins();
+    } else if (playerHit > 0.5) {
+      //if you hit the goblin
+        alert('Your attack connects.');
+        goblin.hp--;
+        if (goblin.hp === 0) {
+          //goblin est dead
+            goblinDiv.removeEventListener('click', clickGoblin());
+            defeatedGoblins++;
+            numDefeatedDisplay.textContent = 'Number Defeated: ' + defeatedGoblins;
+        }
+    } else {
+        alert('The creature scrambles out of the way of your swing.');
+    } if (goblinHit < 0.5) {
+      //if the goblin hits you
+        alert('The goblin lands a blow on you.');
+        playerHp--;
+        playerHpDisplay.textContent = 'Your Health: ' + playerHp;
+        if (playerHp === 0) {
+          //hp out. rip. game over
+            createGoblinButton.disabled = true;
+            goblinNameInput.value = '';
+            alert('You have died. Refresh the page if another hero stands against the goblin tide.');
+        }
+    } else {
+        alert('You dodge the goblin\'s swing.');
     }
+    displayGoblins();
+    //}
 }
 
 function displayGoblins() {
@@ -78,7 +74,7 @@ function displayGoblins() {
             goblinDiv.classList.add('captain');
         }
         goblinDiv.addEventListener('click', () => {
-            clickGoblin(goblin);
+            clickGoblin(goblin, goblinDiv);
         });
         goblinDisplay.appendChild(goblinDiv);
     }
