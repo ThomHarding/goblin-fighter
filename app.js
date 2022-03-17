@@ -4,16 +4,16 @@ let numDefeatedDisplay = document.getElementById('num-defeated');
 let goblinDisplay = document.getElementById('goblin-holder');
 let goblinNameInput = document.getElementById('goblin-name');
 
-let playerHp = 3;
+let playerHp = 10;
 let goblinArray = [
-    { name: 'Jimothy', id: 0, hp: 3 },
+    { name: 'Jimothy', id: 0, hp: 1 },
     { name: 'The Captain', id: 1, hp: 15 },
 ];
 let defeatedGoblins = 0;
 let goblinId = 2;
 
 createGoblinButton.addEventListener('click', () => {
-    let newGoblin = { name: goblinNameInput.value, id: goblinId, hp: 3 };
+    let newGoblin = { name: goblinNameInput.value || 'A Goblin', id: goblinId, hp: 3 };
     goblinId++;
     goblinArray.push(newGoblin);
     displayGoblins();
@@ -25,7 +25,7 @@ function renderGoblin(goblinObject) {
     nameDiv.textContent = goblinObject.name;
     newGoblinDiv.appendChild(nameDiv);
     let hpDiv = document.createElement('div');
-    hpDiv.textContent = goblinObject.hp;
+    hpDiv.textContent = 'Health: ' + goblinObject.hp;
     newGoblinDiv.appendChild(hpDiv);
     newGoblinDiv.classList.add('goblin');
     return newGoblinDiv;
@@ -36,9 +36,14 @@ function displayGoblins() {
     for (let goblin of goblinArray) {
         let goblinDiv = renderGoblin(goblin);
         goblinDiv.classList.add('goblin');
+        if (goblin.hp === 0) {
+            goblinDiv.classList.add('dead');
+        } else if (goblin.name === 'The Captain') {
+            goblinDiv.classList.add('captain');
+        }
         goblinDiv.addEventListener('click', () => {
           //should refactor this into its own function so i can just remove the event listener
-            if (goblin.hp > 0 && playerHp > 0) {
+            if (playerHp > 0 && goblin.hp > 0) {
                 let playerHit = Math.random();
                 let goblinHit = Math.random();
                 if (goblin.name === 'The Captain') {
@@ -53,7 +58,6 @@ function displayGoblins() {
                     goblin.hp--;
                     if (goblin.hp === 0) {
                         goblinDiv.disabled = true;
-                        goblinDiv.classList.add('dead');
                         defeatedGoblins++;
                         numDefeatedDisplay.textContent = 'Number Defeated: ' + defeatedGoblins;
                     }

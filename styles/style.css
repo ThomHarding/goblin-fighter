@@ -89,3 +89,15 @@ footer {
     background-color: var(--color3);
     box-shadow: var(--shadow);
 }
+
+.goblin {
+    outline: solid 1px black;
+}
+
+.captain {
+    background-color: lightblue;
+}
+
+.dead {
+    background-color: red;
+}
