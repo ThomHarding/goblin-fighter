@@ -1,26 +1,62 @@
-## The Golden Rule: 
+required html:
+player
+  hp
+goblin
+  name
+make new goblin button
+number of goblins defeated
 
-🦸 🦸‍♂️ `Stop starting and start finishing.` 🏁
+required js:
 
-If you work on more than one feature at a time, you are guaranteed to multiply your bugs and your anxiety.
+variables
+player hp
+array of goblins
+defeated goblin count
+number of goblins
 
-## Making a plan
+player
+  nothing, i think
+goblin
+  event listener on click
+    math.random to determine hit
+    math.random to determine goblin hit
+    if hit {
+      alert to show hit
+      displayGoblins();
+      if goblin hp = 0 {
+        disable goblin button
+        change its display somehow? make it red and strikethrough?
+      }
+    } else {
+      alert to show no hit
+      displayGoblins();
+    } if goblin hit {
+      alert to show goblin hit
+      displayGoblins();
+      if user hp = 0 {
+        for each button on page {
+          buttons.disabled = true;
+        }
+      }
+    } else {
+      alert to show no goblin hit
+      displayGoblins();
+    }
 
-1) **Make a drawing of your app. Simple "wireframes"** 
-1) **Look at the drawing and name the HTML elements you'll need to realize your vision**
-1) **Look at the drawing and imagine using the app. What _state_ do you need to track?** 
-1) **For each HTML element ask: Why do I need this? (i.e., "we need div to display the results in")** 
-1) **Once we know _why_ we need each element, think about how to implement the "Why" as a "How" (i.e., `resultsEl.textContent = newResults`)**
-1) **Find all the 'events' (user clicks, form submit, on load etc) in your app. Ask one by one, "What happens when" for each of these events. Does any state change? Does any DOM update?**
-1) **Think about how to validate each of your features according to a Definition of Done. (Hint: console.log usually helps here.)**
-1) **Consider what features _depend_ on what other features. Use this dependency logic to figure out what order to complete tasks.**
+create goblin button
+  event listener on click
+    make goblin object
+      input form.value, goblin number, hp (3)
+    renderGoblin
 
-Additional considerations:
-- Ask: which of your HTML elements need to be hard coded, and which need to be dynamically generated?
-- Consider your data model. 
-  - What kinds of objects (i.e., Dogs, Friends, Todos, etc) will you need? 
-  - What are the key/value pairs? 
-  - What arrays might you need? 
-  - What needs to live in a persistence layer?
-- Is there some state we need to initialize?
-- Ask: should any of this work be abstracted into functions? (i.e., is the work complicated? can it be resused?)
+functions:
+renderGoblin(goblinObject)
+  make div
+  make children using goblin object data as appropriate
+  append children
+  return div
+
+displayGoblins()
+  clear goblin display div
+  for each goblin in goblins array
+    display to goblins div
