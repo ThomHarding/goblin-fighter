@@ -13,7 +13,7 @@ let defeatedGoblins = 0;
 let goblinId = 2;
 
 createGoblinButton.addEventListener('click', () => {
-    let newGoblin = renderGoblin({ name: goblinNameInput.value, id: goblinId, hp: 3 });
+    let newGoblin = { name: goblinNameInput.value, id: goblinId, hp: 3 };
     goblinId++;
     goblinArray.push(newGoblin);
     displayGoblins();
@@ -65,6 +65,7 @@ function displayGoblins() {
                     playerHpDisplay.textContent = 'Your Health: ' + playerHp;
                     if (playerHp === 0) {
                         createGoblinButton.disabled = true;
+                        goblinNameInput.value = '';
                         alert('You have died. Refresh the page if another hero stands against the goblin tide.');
                     }
                 } else {
