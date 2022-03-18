@@ -78,7 +78,7 @@ header img {
 p {
     margin: var(--gutter);
 }
-  
+
 footer {
     position: fixed;
     width: 100%;
@@ -88,4 +88,20 @@ footer {
     justify-content: flex-end;
     background-color: var(--color3);
     box-shadow: var(--shadow);
+}
+
+.goblin {
+    outline: solid 1px black;
+}
+
+.captain {
+    background-color: lightblue;
+}
+
+.dead {
+    background-color: red;
+}
+
+.noclick {
+    pointer-events: none;
 }
