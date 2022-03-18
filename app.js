@@ -34,8 +34,8 @@ function hitTarget(attPower, defPower) {
 
 function levelUp() {
     playerLevel++;
-    playerPower *= 1.6;
-    xpToLevel += 100;
+    playerPower *= 2;
+    xpToLevel += 10;
     playerXp = 0;
     playerHp = 10;
     displayCharacter();
@@ -83,10 +83,10 @@ function clickGoblin(goblin) {
             alert('You have died. Refresh the page if another hero stands against the goblin tide.');
             alert('On the bright side, you reached level ' + playerLevel + ' and killed ' + defeatedGoblins + ' goblins!');
         }
-        displayCharacter();
     } else {
         alert('You dodge the goblin\'s swing.');
     }
+    displayCharacter();
     displayGoblins();
 }
 
