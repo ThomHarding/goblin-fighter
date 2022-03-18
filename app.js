@@ -5,45 +5,49 @@ let playerHpDisplay = document.getElementById('player-hp');
 let numDefeatedDisplay = document.getElementById('num-defeated');
 let goblinDisplay = document.getElementById('goblin-holder');
 let goblinNameInput = document.getElementById('goblin-name');
+let playerPowerDisplay = document.getElementById('player-power');
 
 let playerHp = 10;
 let goblinArray = [
-    { name: 'Jimothy', id: 0, hp: 1 },
-    { name: 'The Captain', id: 1, hp: 15 },
+    { name: 'Jimothy', id: 0, hp: 1, power: 1 },
+    { name: 'The Captain', id: 1, hp: 15, power: 10 },
 ];
 let defeatedGoblins = 0;
 let goblinId = 2;
+let playerPower = 1;
 
 createGoblinButton.addEventListener('click', () => {
-    let newGoblin = { name: goblinNameInput.value || 'A Goblin', id: goblinId, hp: 3 };
+    let newGoblin = { name: goblinNameInput.value || 'A Goblin', id: goblinId, hp: 3, power: Math.ceil(Math.random() * 9) };
     goblinId++;
     goblinArray.push(newGoblin);
     displayGoblins();
 });
 
+function hitTarget(attPower, defPower) {
+    return (Math.ceil((Math.random()) * attPower)) > (Math.ceil(Math.random() * defPower));
+}
+
 function clickGoblin(goblin) {
-    let playerHit = Math.random();
-    let goblinHit = Math.random();
-    if (goblin.name === 'The Captain') {
-      //special captain math. replace later with captain just having higher power
-        if (playerHit > 0.9) {
+    if (hitTarget((playerPower + 1), goblin.power)) {
+    //if you hit the goblin
+        if (goblin.name === 'The Captain') {
             alert('Your attack damages the thing... barely.');
-            goblin.hp--;
         } else {
-            alert('The Captain parries your attack effortlessly.');
+            alert('Your attack connects.');
         }
-    } else if (playerHit > 0.5) {
-      //if you hit the goblin
-        alert('Your attack connects.');
         goblin.hp--;
         if (goblin.hp === 0) {
-          //goblin est dead
+            //goblin est dead
             defeatedGoblins++;
             numDefeatedDisplay.textContent = 'Number Defeated: ' + defeatedGoblins;
         }
     } else {
-        alert('The creature scrambles out of the way of your swing.');
-    } if (goblinHit < 0.5) {
+        if (goblin.name === 'The Captain') {
+            alert('The Captain parries your blow effortlessly.');
+        } else {
+            alert('The creature scrambles out of the way of your swing.');
+        }
+    } if (hitTarget(goblin.power, playerPower)) {
       //if the goblin hits you
         alert('The goblin lands a blow on you.');
         playerHp--;
