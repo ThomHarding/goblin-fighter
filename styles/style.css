@@ -100,5 +100,8 @@ footer {
 
 .dead {
     background-color: red;
+}
+
+.noclick {
     pointer-events: none;
 }
